@@ -1,0 +1,43 @@
+# ManiSkill2 VLA Agent Example Configuration
+# Example configuration for using VLA agent with ManiSkill2 environment
+
+# Environment configuration
+env_name: "PickCube-v0"  # Pick cube task
+
+# Evaluation parameters
+num_episodes: 50
+seed: 42
+
+# Policy configuration - using VLA agent
+policy_type: "vla"
+
+# VLA Agent Configuration
+base_url: "http://localhost:7891"  # Replace with your VLA service endpoint
+replan_step: 10  # Number of steps to replan
+use_delta: true  # Use delta mode for actions
+action_ensemble: false  # Enable action ensemble for smoother actions
+action_ensemble_horizon: 7  # Action ensemble horizon
+adaptive_ensemble_alpha: 0.1  # Adaptive ensemble alpha
+goal: "pick up a cube and move it to the green point"  # Explicit goal description
+image_size: [256, 256]  # Image size for VLA processing
+enabled_cameras: ["base_camera"]  # Which cameras to use: base_camera, hand_camera
+
+# Rendering and visualization
+render: true  # Disable rendering for faster evaluation
+render_mode: "cameras"
+render_goal: true  # Whether to render goal site
+
+# Episode parameters
+max_episode_steps: 400  # Reduce steps for faster testing
+
+# Output parameters
+output_dir: "results/maniskill2_vla_evaluation"
+results_file: "vla_results.json"
+video_dir: "videos"
+log_dir: "logs"
+
+# Logging parameters
+log_level: "INFO"
+
+# System parameters
+debug: false

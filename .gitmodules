@@ -1,0 +1,18 @@
+[submodule "simpler"]
+	path = simpler
+	url = https://github.com/simpler-env/SimplerEnv.git
+[submodule "calvin"]
+	path = calvin
+	url = https://github.com/mees/calvin.git
+[submodule "libero"]
+	path = libero
+	url = https://github.com/Lifelong-Robot-Learning/LIBERO.git
+[submodule "RoboTwin"]
+	path = RoboTwin
+	url = https://github.com/RoboTwin-Platform/RoboTwin.git
+[submodule "maniskill2/ManiSkill2-Learn"]
+	path = maniskill2/ManiSkill2-Learn
+	url = https://github.com/haosulab/ManiSkill2-Learn.git
+[submodule "maniskill2/ManiSkill"]
+	path = maniskill2/ManiSkill
+	url = https://github.com/haosulab/ManiSkill.git

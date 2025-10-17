@@ -1,0 +1,8 @@
+benchmark: libero_goal
+num_trails_per_task: 50
+num_steps_wait: 10
+seed: 7
+base_url: http://localhost:7891
+replan_step: 11
+
+output_dir: "results/example_libero_goal"

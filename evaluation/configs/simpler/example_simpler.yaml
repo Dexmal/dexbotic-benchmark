@@ -1,0 +1,11 @@
+defaults:
+  - base_config
+
+replan_step: 5
+base_url: https://sd2qqrjq5ni4n75na0je0.apigateway-cn-beijing.volceapi.com
+use_delta: true
+action_ensemble_horizon: 7
+adaptive_ensemble_alpha: 0.1
+action_ensemble: false
+
+output_dir: ./result_test

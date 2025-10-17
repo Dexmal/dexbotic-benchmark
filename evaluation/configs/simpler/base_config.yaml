@@ -1,0 +1,44 @@
+# Simpler ManiSkill2 Environment Evaluation Configuration File
+# Used to configure evaluation parameters for Simpler environment
+
+# Policy Model Configuration
+policy_model: vla  # Policy model type: rt1, octo-base, octo-small, vla
+ckpt_path: 200k_2  # Model checkpoint path
+robot: widowx  # Robot type
+policy_setup: widowx_bridge  # Policy model setup
+
+# Environment Configuration
+env_name: StackGreenCubeOnYellowCubeBakedTexInScene-v0  # Environment name
+scene_name: bridge_table_1_v1  # Scene name
+additional_env_save_tags: octo_init_rng_0  # Additional environment save tags
+
+# Control Parameters
+control_freq: 5  # Control frequency
+sim_freq: 500  # Simulation frequency
+max_episode_steps: 120  # Maximum episode steps
+enable_raytracing: false  # Whether to enable ray tracing
+obs_camera_name: null  # Observation camera name, null means use default camera
+action_scale: 1.0  # Action scaling factor
+rgb_overlay_path: simpler/ManiSkill2_real2sim/data/real_inpainting/bridge_real_eval_1.png  # RGB overlay path
+
+# Robot Initialization Parameters
+robot_init_x_range: [0.147, 0.147, 1]  # Robot initial X position range [xmin, xmax, num]
+robot_init_y_range: [0.028, 0.028, 1]  # Robot initial Y position range [ymin, ymax, num]
+robot_init_rot_quat_center: [0, 0, 0, 1]  # Robot initial rotation quaternion center [x, y, z, w]
+robot_init_rot_rpy_range: [0, 0, 1, 0, 0, 1, 0, 0, 1]  # Robot initial rotation RPY range [rmin, rmax, rnum, pmin, pmax, pnum, ymin, ymax, ynum]
+
+# Object Variation Parameters
+obj_variation_mode: episode  # Object variation mode: xy (change position) or episode (change episode)
+obj_episode_range: [0, 24]  # Object episode range [start, end]
+
+# Output and Logging Configuration
+log_level: INFO  # Log level
+
+# System Parameters
+tf_memory_limit: 3072  # TensorFlow memory limit
+octo_init_rng: 0  # Octo initialization random seed
+
+# VLA Model Specific Parameters
+image_size: [224, 224]  # Image size
+
+verbose: false

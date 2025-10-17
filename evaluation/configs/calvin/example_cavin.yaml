@@ -1,0 +1,36 @@
+# Inherit base configuration file
+defaults:
+  - base_config
+
+datamodule:
+  observation_space:
+    rgb_obs:
+    - rgb_static
+    - rgb_gripper
+    depth_obs: []
+    state_obs:
+    - robot_obs
+    actions:
+    - actions
+    language:
+    - language
+
+# Inference specific configuration
+send_image:
+- rgb_static
+
+seed: 0
+
+temperature: 0.6
+replan_step: 7
+base_url: https://sd2qqrjq5ni4n75na0je0.apigateway-cn-beijing.volceapi.com
+use_delta: true
+action_ensemble_horizon: 7
+adaptive_ensemble_alpha: 0.1
+action_ensemble: false
+
+dataset_path: evaluation/configs/calvin/dataset/validation
+debug: false
+device: 0
+
+output_dir: "./result_test/calvin"

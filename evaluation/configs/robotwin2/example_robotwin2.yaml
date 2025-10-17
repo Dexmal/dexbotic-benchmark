@@ -1,0 +1,14 @@
+# Basic experiment configuration (keep unchanged)
+policy_name: dexbotic
+task_name: adjust_bottle
+task_config: demo_clean
+ckpt_setting: dexbotic
+seed: 0
+instruction_type: unseen
+
+# Add Parameters You Need
+base_url: http://localhost:7891
+output_dir: ./result_test/robotwin2_evaluation
+cameras: "head_camera_rgb,left_camera_rgb,right_camera_rgb"
+action_horizon: 8
+action_mode: relative
