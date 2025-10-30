@@ -58,10 +58,9 @@ class LiberoVLAAgent(BaseVLAAgent):
             obs (dict): Libero environment observation
             
         Returns:
-            np.ndarray: State information (Libero environment does not need state information)
+            np.ndarray: State information
         """
-        # Libero environment does not need state information
-        return None
+        return obs.get('state', None)
 
     def _prepare_images(self, obs: dict) -> list:
         """
@@ -74,7 +73,10 @@ class LiberoVLAAgent(BaseVLAAgent):
             list: Encoded image list (byte format)
         """
         # Get image
-        images = [obs['image']]
+        if isinstance(obs['image'], list):
+            images = obs['image']
+        else:
+            images = [obs['image']]
         
         encoded_images = []
         for image in images:

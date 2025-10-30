@@ -5,6 +5,7 @@ Libero Environment Evaluator
 from pathlib import Path
 from typing import Dict, Any, List
 import logging
+import math
 import time
 import numpy as np
 import tqdm
@@ -77,6 +78,24 @@ def _resize_with_pad_pil(image: Image.Image, height: int, width: int, method: in
     pad_width = max(0, int((width - resized_width) / 2))
     zero_image.paste(resized_image, (pad_width, pad_height))
     return zero_image
+
+
+def _quat2axisangle(quat):
+    """
+    Copied from robosuite: https://github.com/ARISE-Initiative/robosuite/blob/eafb81f54ffc104f905ee48a16bb15f059176ad3/robosuite/utils/transform_utils.py#L490C1-L512C55
+    """
+    # clip quaternion
+    if quat[3] > 1.0:
+        quat[3] = 1.0
+    elif quat[3] < -1.0:
+        quat[3] = -1.0
+
+    den = np.sqrt(1.0 - quat[3] * quat[3])
+    if math.isclose(den, 0.0):
+        # This is (close to) a zero degree rotation, immediately return
+        return np.zeros(3)
+
+    return (quat[:3] * 2.0 * math.acos(quat[3])) / den
 
 
 class LiberoEvaluator(BaseEvaluator):
@@ -232,8 +251,25 @@ class LiberoEvaluator(BaseEvaluator):
                                 
                                 # Save preprocessed images for replay video
                                 replay_images.append(img)
-                                observation = dict(image=img)
+                                observation = dict()
                                 goal = task_description
+
+                                if self.config.get('send_state', False):
+                                    observation['state'] = np.concatenate([
+                                        obs['robot0_eef_pos'],
+                                        _quat2axisangle(obs['robot0_eef_quat']),
+                                        obs['robot0_gripper_qpos']
+                                    ])
+
+                                images = []
+                                if self.config.get('send_image', []):
+                                    if 'image' in self.config['send_image']:
+                                        images.append(img)
+                                    if 'wrist_image' in self.config['send_image']:
+                                        images.append(wrist_img)
+                                if not images:
+                                    images.append(img)
+                                observation['image'] = images
                                 
                                 # Use step method (standard method for LiberoVLAAgent)
                                 action = self.model.step(observation, goal, episode_first_frame=episode_first_frame)
