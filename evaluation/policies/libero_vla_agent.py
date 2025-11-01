@@ -27,7 +27,7 @@ class LiberoVLAAgent(BaseVLAAgent):
         Args:
             config (OmegaConf): Configuration object
         """
-        return
+        self.discrete_gripper = config.get('discrete_gripper', True)
 
     def step(self, obs: dict, goal: str, episode_first_frame: bool=None) -> np.ndarray:
         """
@@ -99,6 +99,9 @@ class LiberoVLAAgent(BaseVLAAgent):
         
         # Generate actions for multiple time steps
         for action in raw_actions[:self.replan_step]:
-            gripper_action = -1 if action[-1] < 0 else 1
+            if self.discrete_gripper:
+                gripper_action = -1 if action[-1] < 0 else 1
+            else:
+                gripper_action = action[-1]
             self.action_queue.append(action[:-1] + [gripper_action])    
         

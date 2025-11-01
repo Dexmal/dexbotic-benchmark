@@ -60,6 +60,9 @@ class BaseVLAAgent(ABC):
         else:
             self.action_ensembler = None
             
+        # Text template usage
+        self.use_text_template = getattr(config, 'use_text_template', True)
+
         # Call subclass-specific initialization
         self._init_specific_config(config)
 
@@ -164,8 +167,11 @@ class BaseVLAAgent(ABC):
         Raises:
             SystemExit: Exits program when VLA service does not return valid response
         """
-        text = f'What action should the robot take to {goal}?'
-        
+        if self.use_text_template:
+            text = f'What action should the robot take to {goal}?'
+        else:
+            text = goal
+
         # Prepare request data (specific parameters determined by subclass)
         data = self._prepare_request_data(text, state, episode_first_frame=episode_first_frame)
         
